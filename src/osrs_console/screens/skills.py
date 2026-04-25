@@ -1,0 +1,134 @@
+from __future__ import annotations
+
+from textual.app import ComposeResult
+from textual.containers import Container, Horizontal, ScrollableContainer, Vertical
+from textual.screen import Screen
+from textual.widgets import Label, LoadingIndicator, Static, Footer
+
+from osrs_console.utils.api import APIError, PlayerData, fetch_player
+from osrs_console.widgets.stats import PlayerHeader, SkillsTable, SkillBars
+
+
+class SkillsScreen(Screen):
+    
+    DEFAULT_CSS = """
+    SkillsScreen {
+        layout: vertical;
+    }
+    #loading-container {
+        align: center middle;
+        height: 1fr;
+    }
+    #error-container {
+        align: center middle;
+        height: 1fr;
+    }
+    #error-msg {
+        color: $error;
+        text-align: center;
+    }
+    #skills-body {
+        height: 1fr;
+        display: none;
+    }
+    #skills-col {
+        width: 2fr;
+    }
+    #bars-col {
+        width: 1fr;
+        border-left: tall $panel-darken-2;
+        overflow-y: auto;
+    }
+    """
+
+    BINDINGS = [
+        ("escape", "go_back", "Back"),
+        ("r", "reload", "Reload"),
+        ("c", "open_calculator", "Skill Calc."),
+        ("w", "open_wealth", "Wealth / GE"),
+        ("f", "open_analytics", "$ Analytics"),
+    ]
+
+    def __init__(self, username: str, account_type: str = "normal", **kwargs) -> None:
+        super().__init__(**kwargs)
+        self._username = username
+        self._account_type = account_type
+        self._player: PlayerData | None = None
+
+    def compose(self) -> ComposeResult:
+        with Container(id="loading-container"):
+            yield LoadingIndicator()
+            yield Label(f"Fetching data for '{self._username}'...")
+
+        with Container(id="error-container"):
+            yield Label("", id="error-msg")
+            yield Label("Press [b]Esc[/b] to go back.", markup=True)
+
+        with Horizontal(id="skills-body"):
+            with Vertical(id="skills-col"):
+                yield Static(id="player-header-slot")
+                yield Static(id="skills-table-slot")
+            with ScrollableContainer(id="bars-col"):
+                yield Static(id="bars-slot")
+
+        yield Footer()
+
+    def on_mount(self) -> None:
+        self.query_one("#error-container").display = False
+        self.query_one("#skills-body").display = False
+
+        self.run_worker(self._load_player(), exclusive=True)
+
+    async def _load_player(self) -> None:
+        try:
+            player = await fetch_player(self._username, self._account_type)
+        except APIError as err:
+            self._show_error(str(err))
+            return
+        except Exception as err:
+            self._show_error(f"Unexpected error: {err}")
+            return
+        
+        self._player = player
+        self._populate(player)
+    
+    def _show_error(self, message: str) -> None:
+        self.query_one("#loading-container").display = False
+        self.query_one("#error-container").display = True
+        self.query_one("#error-msg", Label).update(f"⚠ {message}")
+
+    def _populate(self, player: PlayerData) -> None:
+        self.query_one("#loading-container").display = False
+        self.query_one("#skills-body").display = True
+
+        header_slot = self.query_one("#player-header-slot", Static)
+        header_slot.remove_children()
+        header = PlayerHeader(player)
+        header_slot.mount(header)
+
+        table_slot = self.query_one("#skills-table-slot", Static)
+        table_slot.remove_children()
+        table_slot.mount(SkillsTable(player))
+
+        bars_slot = self.query_one("#bars-slot", Static)
+        bars_slot.remove_children()
+        bars_slot.mount(SkillBars(player))
+
+    def action_go_back(self) -> None:
+        self.app.pop_screen()
+
+    def action_reload(self) -> None:
+        self.query_one("#loading-container").display = True
+        self.query_one("#error-container").display = False
+        self.query_one("#skills-body").display = False
+        self.run_worker(self._load_player(), exclusive=True)
+
+    def action_open_calculator(self) -> None:
+        pass
+
+    def action_open_wealth(self) -> None:
+        pass
+
+    def action_open_analytics(self) -> None:
+        pass
+        
