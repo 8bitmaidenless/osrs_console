@@ -25,6 +25,7 @@ from osrs_console.utils.calc import (
     calculate,
     load_actions
 )
+from osrs_console.widgets.charts import LabelCard
 
 
 SUPPORTED_SKILLS = [s for s in SKILLS if s != "Overall"]
@@ -335,7 +336,19 @@ class CalculatorScreen(Screen):
 
             aggslot = self.query_one("#agg-card-slot", Static)
             aggslot.remove_children()
-
+            labels = [
+                (
+                    f"[b]Action cycles needed[/b]",
+                    None,
+                ),
+                (
+                    f"[i]{session.total_actions:,}[/i] [b]@ {session.total_xp_per:,} XP/Cy.[/b]",
+                    None,
+                ),
+            ]
+            aggslot.mount(
+                LabelCard(*labels)
+            )
             self.query_one("#actions-counter", Label).update(
                 f"{len(session.results)} Actions selected"
             )
