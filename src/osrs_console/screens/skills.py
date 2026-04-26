@@ -47,6 +47,7 @@ class SkillsScreen(Screen):
         ("c", "open_calculator", "Skill Calc."),
         ("w", "open_wealth", "Wealth / GE"),
         ("f", "open_analytics", "$ Analytics"),
+        ("p", "open_prices", "GE Prices"),
     ]
 
     def __init__(self, username: str, account_type: str = "normal", **kwargs) -> None:
@@ -124,11 +125,36 @@ class SkillsScreen(Screen):
         self.run_worker(self._load_player(), exclusive=True)
 
     def action_open_calculator(self) -> None:
-        pass
+        try:
+            from osrs_console.screens.calculator import CalculatorScreen
+            self.app.push_screen(CalculatorScreen(player=self._player))
+        except ImportError:
+            self._show_error("⚠ CalculatorScreen not implemented.")
+            return
 
     def action_open_wealth(self) -> None:
-        pass
+        try:
+            from osrs_console.screens.wealth import WealthScreen
+            self.app.push_screen(WealthScreen(player=self._player))
+        except ImportError:
+            self._show_error("⚠ WealthScreen not implemented.")
+            return
 
     def action_open_analytics(self) -> None:
-        pass
+        user = getattr(self._player, "username", None)
+        try:
+            from osrs_console.screens.analytics import AnalyticsScreen
+            self.app.push_screen(AnalyticsScreen(username=user))
+        except ImportError:
+            self._show_error("⚠ AnalyticsScreen not implemented.")
+            return
+        
+    def action_open_prices(self) -> None:
+        try:
+            from osrs_console.screens.prices import GEPricesScreen
+            self.app.push_screen(GEPricesScreen())
+        except ImportError:
+            self._show_error("⚠ GEPricesScreen not implemented.")
+            return
+        
         

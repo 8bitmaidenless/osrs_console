@@ -221,4 +221,4 @@ def _fetch_hiscore(username: str, account_type: str) -> tuple[str, list[dict]]:
     raise err or requests.HTTPError(f"<_fetch_hiscore error> User '{username}' ['{account_type}' not found]")
 
 
-_XP_TABLE = {_xp_for_level(i) for i in range(1, 100)}
+_XP_TABLE = [_xp_for_level(i) for i in range(1, 100)]
