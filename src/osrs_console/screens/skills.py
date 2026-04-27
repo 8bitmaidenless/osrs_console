@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+# from rich.padding import Padding
 from textual.app import ComposeResult
 from textual.containers import Container, Horizontal, ScrollableContainer, Vertical
 from textual.screen import Screen
@@ -39,15 +40,20 @@ class SkillsScreen(Screen):
         border-left: tall $panel-darken-2;
         overflow-y: auto;
     }
+    #dock {
+        height: auto;
+        layout: vertical;
+        dock: bottom;
+    }
     """
 
     BINDINGS = [
         ("escape", "go_back", "Back"),
         ("r", "reload", "Reload"),
-        ("c", "open_calculator", "Skill Calc."),
-        ("w", "open_wealth", "Wealth / GE"),
-        ("f", "open_analytics", "$ Analytics"),
-        ("p", "open_prices", "GE Prices"),
+        ("c", "open_calculator", "🧮 Skill calc."),
+        ("w", "open_wealth", "💰 Wealth / GE"),
+        ("f", "open_analytics", "📊 Analytics"),
+        ("p", "open_prices", "🔍 GE Prices"),
     ]
 
     def __init__(self, username: str, account_type: str = "normal", **kwargs) -> None:

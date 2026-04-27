@@ -36,10 +36,10 @@ class CalculatorScreen(Screen):
     BINDINGS = [
         ("escape", "go_back", "Back"),
         ("r", "calculate", "Calculate"),
-        ("s", "open_skills", "View skills"),
-        ("w", "open_wealth", "Wealth / GE"),
-        ("f", "open_analytics", "💰 Analytics"),
-        ("p", "export_to_prices", "Export → GE Prices"),
+        ("s", "open_skills", "⚔️ View skills"),
+        ("w", "open_wealth", "💰 Wealth / GE"),
+        ("f", "open_analytics", "📊 Analytics"),
+        ("p", "export_to_prices", "🔍 Export → GE Prices"),
     ]
 
     DEFAULT_CSS = """
@@ -50,7 +50,7 @@ class CalculatorScreen(Screen):
         height: auto;
         background: $panel;
         border-bottom: tall $panel-darken-2;
-        padding: 1 2;
+        padding: 0 2;
         layout: horizontal;
     }
     #calc-header > * {
@@ -111,6 +111,11 @@ class CalculatorScreen(Screen):
     #calc-btn { margin-right: 2; }
     #export-btn { }
     #calc-status { color: $text-muted; margin-left: 2; }
+    #dock {
+        height: auto;
+        dock: bottom;
+        layout: vertical; 
+    }
     """
 
     def __init__(
@@ -170,13 +175,13 @@ class CalculatorScreen(Screen):
             with Vertical(id="results-col"):
                 yield Static("Results", id="results-title")
                 yield DataTable(id="results-table", zebra_stripes=True)
+        with Vertical(id="dock"):
+            with Horizontal(id="calc-footer"):
+                yield Button("Calculate  [R key]", variant="primary", id="calc-btn")
+                yield Button("Export to GE Prices →", id="export-btn")
+                yield Label("", id="calc-status")
 
-        with Horizontal(id="calc-footer"):
-            yield Button("Calculate  [R key]", variant="primary", id="calc-btn")
-            yield Button("Export to GE Prices →", id="export-btn")
-            yield Label("", id="calc-status")
-
-        yield Footer()
+            yield Footer()
 
     def on_mount(self) -> None:
         table: DataTable = self.query_one("#results-table", DataTable)
