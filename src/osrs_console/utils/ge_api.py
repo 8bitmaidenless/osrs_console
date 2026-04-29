@@ -135,7 +135,7 @@ def _http_get(url: str) -> dict:
         raise GEAPIError(f"Bad JSON from API: {e}")
     
 
-def _blockng_fetch_mapping() -> dict[str, GEItem]:
+def _blocking_fetch_mapping() -> dict[str, GEItem]:
     data = _http_get(f"{_BASE}/mapping")
     result: dict[str, GEItem] = {}
     for entry in data:

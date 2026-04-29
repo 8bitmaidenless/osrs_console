@@ -50,10 +50,10 @@ class SkillsScreen(Screen):
     BINDINGS = [
         ("escape", "go_back", "Back"),
         ("r", "reload", "Reload"),
-        ("shift+2", "open_calculator", "🧮 XP Calc"),
-        ("shift+3", "open_wealth", "💰 Wealth"),
-        ("shift+4", "open_analytics", "📊 Analytics"),
-        ("shift+5", "open_prices", "🔍 GE Prices"),
+        ("ctrl+2", "open_calculator", "🧮 XP Calc"),
+        ("ctrl+3", "open_wealth", "💰 Wealth"),
+        ("ctrl+4", "open_analytics", "📊 Analytics"),
+        ("ctrl+5", "open_prices", "🔍 GE Prices"),
         ("ctrl+h", "open_home", "🏚️ Home"),
     ]
 
