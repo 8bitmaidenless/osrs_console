@@ -30,10 +30,11 @@ class WealthScreen(Screen):
         ("escape", "go_back", "Back"),
         ("r", "load_data", "Reload"),
         ("ctrl+z", "undo_pending", "Undo pending"),
-        ("s", "open_skills", "⚔️ View skills"),
-        ("c", "open_calculator", " 🧮 Skill calc."),
-        ("f", "open_analytics", "📊 Analytics"),
-        ("p", "open_prices", "🔍 GE Prices"),
+        ("ctrl+1", "open_skills", "⚔️ View skills"),
+        ("ctrl+2", "open_calculator", " 🧮 Skill calc."),
+        ("ctrl+4", "open_analytics", "📊 Analytics"),
+        ("ctrl+5", "open_prices", "🔍 GE Prices"),
+        ("ctrl+h", "open_home", "🏚️ Home"),
     ]
 
     DEFAULT_CSS = """
@@ -120,81 +121,6 @@ class WealthScreen(Screen):
         layout: vertical;
     }
         """
-
-    # DEFAULT_CSS = 
-    # WealthScreen {
-        # layout: vertical;
-    # }
-    #wealth-content { height: auto; }
-    #wealth-header {
-        # height: auto;
-        # background: $panel;
-        # border-bottom: tall $panel-darken-2;
-        # layout: horizontal;
-        # align: left middle;
-        # padding: 0 2;
-    # }
-    #header-username { width: 24; margin-right: 2; }
-    #header-note { width: 2fr; margin-right: 2; }
-    
-    #snap-body { height: auto; layout: horizontal; }
-    
-    #item-form {
-    #     width: 32;
-    #     height: auto;
-    #     border-right: tall $panel-darken-2;
-    #     padding: 1 2;
-    # }
-    # .form-label { color: $text-muted; margin-top: 1; }
-    #item-form Input { width: 100%; }
-    #add-item-btn { width: 100%; margin-top: 1; }
-    
-    #item-list-col { width: 3fr; overflow-y: scroll; }
-    #item-list-title {
-    #     background: $panel-darken-1;
-    #     padding: 0 1;
-    #     height: 1;
-    #     text-style: bold;
-    # }
-    #pending-table { height: 25vh; }
-    #history-title {
-    #     background: $panel-darken-1;
-    #     padding: 0 1;
-    #     height: 1;
-    #     text-style: bold;
-    #     margin-top: 1;
-    # }
-    #history-table { height: 25vh; }
-    
-    #ge-body { height: auto; layout: horizontal; }
-    #ge-form {
-    #     width: 36;
-    #     height: auto;
-    #     border-right: tall $panel-darken-2;
-    #     padding: 1 2;
-    # }
-    #ge-form Input { width: 100%; }
-    #ge-form Select { width: 100%; }
-    #add-ge-btn {width: 100%; margin-top: 1; }
-    #ge-history-col { width: 3fr; overflow-y: auto;}
-    #ge-history-title {
-    #     background: $panel-darken-1;
-    #     padding: 0 1;
-    #     height: 1;
-    #     text-style: bold;
-    # }
-    #ge-table { height: 40vh; }
-    
-    #wealth-footer {
-    #     height: 1;
-    #     background: $panel;
-    #     border-top: tall $panel-darken-2;
-    #     layout: horizontal;
-    #     align: left middle;
-    #     padding: 0 2;
-    # }
-    #status-label { color: $text-muted; margin-left: 2; }
-    # 
 
     def __init__(
         self,

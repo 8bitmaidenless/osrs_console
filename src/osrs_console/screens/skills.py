@@ -50,10 +50,11 @@ class SkillsScreen(Screen):
     BINDINGS = [
         ("escape", "go_back", "Back"),
         ("r", "reload", "Reload"),
-        ("c", "open_calculator", "🧮 Skill calc."),
-        ("w", "open_wealth", "💰 Wealth / GE"),
-        ("f", "open_analytics", "📊 Analytics"),
-        ("p", "open_prices", "🔍 GE Prices"),
+        ("ctrl+2", "open_calculator", "🧮 XP Calc"),
+        ("ctrl+3", "open_wealth", "💰 Wealth"),
+        ("ctrl+4", "open_analytics", "📊 Analytics"),
+        ("ctrl+5", "open_prices", "🔍 GE Prices"),
+        ("ctrl+h", "open_home", "🏚️ Home"),
     ]
 
     def __init__(self, username: str, account_type: str = "normal", **kwargs) -> None:
