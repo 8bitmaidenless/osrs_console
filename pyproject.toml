@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "osrs_console"
-version = "0.2.5"
+version = "0.2.9"
 description = "A TUI application that features several invaluable utilities for your Old School Runescape Character."
 authors = ["Dylan Garrett"]
 license = "MIT"
