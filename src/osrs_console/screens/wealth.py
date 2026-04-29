@@ -30,10 +30,10 @@ class WealthScreen(Screen):
         ("escape", "go_back", "Back"),
         ("r", "load_data", "Reload"),
         ("ctrl+z", "undo_pending", "Undo pending"),
-        ("shift+1", "open_skills", "⚔️ View skills"),
-        ("shift+2", "open_calculator", " 🧮 Skill calc."),
-        ("shift+4", "open_analytics", "📊 Analytics"),
-        ("shift+5", "open_prices", "🔍 GE Prices"),
+        ("ctrl+1", "open_skills", "⚔️ View skills"),
+        ("ctrl+2", "open_calculator", " 🧮 Skill calc."),
+        ("ctrl+4", "open_analytics", "📊 Analytics"),
+        ("ctrl+5", "open_prices", "🔍 GE Prices"),
         ("ctrl+h", "open_home", "🏚️ Home"),
     ]
 

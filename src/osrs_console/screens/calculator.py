@@ -36,10 +36,10 @@ class CalculatorScreen(Screen):
     BINDINGS = [
         ("escape", "go_back", "Back"),
         ("r", "calculate", "Calculate"),
-        ("shift+1", "open_skills", "⚔️ View skills"),
-        ("shift+3", "open_wealth", "💰 Wealth"),
-        ("shift+4", "open_analytics", "📊 Analytics"),
-        ("shift+5", "export_to_prices", "🔍 Export → GE Prices"),
+        ("ctrl+1", "open_skills", "⚔️ View skills"),
+        ("ctrl+3", "open_wealth", "💰 Wealth"),
+        ("ctrl+4", "open_analytics", "📊 Analytics"),
+        ("ctrl+5", "export_to_prices", "🔍 Export → GE Prices"),
         ("ctrl+h", "open_home", "🏚️ Home"),
     ]
 
